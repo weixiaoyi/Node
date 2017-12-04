@@ -3,7 +3,7 @@ module.exports = {
     // First application
     {
       name      : 'blog.wei_xiaoyi.com',
-      script    : './blog.wei_xiaoyi.com/bin/www',
+      script    : './backend/blog.wei_xiaoyi.com/bin/www',
       env: {
         NODE_ENV: "development"
       },
@@ -15,7 +15,7 @@ module.exports = {
     // Second application
     {
       name      : 'wei_xiaoyi.com',
-      script    : './wei_xiaoyi.com/bin/www'
+      script    : './backend/wei_xiaoyi.com/bin/www'
     }
   ]
 };
