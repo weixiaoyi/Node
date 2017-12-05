@@ -19,6 +19,6 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({title:'前端主页'})
   ]
 };
