@@ -4,11 +4,11 @@ const webpack = require('webpack'); // 用于访问内置插件
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
-  entry:'./wei_xiaoyi.com/index.js',
+  entry:'../wei_xiaoyi.com/index.js',
   devtool: 'inline-source-map',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist/wei_xiaoyi.com/')
+    path: path.resolve(__dirname, '../dist/wei_xiaoyi.com/')
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
