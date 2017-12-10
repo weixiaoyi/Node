@@ -1,14 +1,37 @@
 import './index.css'
-import Icon from './image/01-find.png'
-// let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
-// console.log(y)
-function component() {
-  var element = document.createElement('div')
-  var myIcon = new Image()
-  myIcon.src = Icon
-  element.appendChild(myIcon)
-  return element;
-}
-document.write('<h1 style="font-size: 1rem">前端主页</h1>')
-document.body.appendChild(component());
+import axios from 'axios'
+axios.interceptors.response.use(function (res) {
+  let data=JSON.stringify(res.data)
+  const log='<h1 style="font-size: 1rem">'+data+'</h1>'
+  //document.append(log)
+  return res.data;
+}, function (error) {
+  return Promise.reject(error);
+});
+
+document.getElementById('submit').addEventListener('click',(e)=>{
+  console.log('submit')
+  const files=document.getElementById('file').files;
+  console.log(files.length)
+  let data=new FormData()
+  for(var i=0;i<files.length;i++){
+    data.append('myfile',files[i])
+  }
+  axios({
+    url:'/api/upload',
+    method:'post',
+    headers: {'Content-Type': 'multipart/form-data'},
+    data:data
+  }).then((res)=>{
+    console.log(res)
+  })
+  e.preventDefault()
+})
+
+axios.get('/api/example').then((res)=>{
+  console.log(res)
+})
+
+
+
 

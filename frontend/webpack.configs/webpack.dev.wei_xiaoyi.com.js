@@ -9,7 +9,7 @@ module.exports = merge(dev,{
   },
   plugins:[
     new HtmlWebpackPlugin({
-      title:'前端主页'
+      template: '../wei_xiaoyi.com/index.html'
     })
   ]
 });
