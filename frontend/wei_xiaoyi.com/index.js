@@ -9,6 +9,22 @@ axios.interceptors.response.use(function (res) {
   return Promise.reject(error);
 });
 
+function timeout(ms) {
+  return new Promise((resolve) => {
+    setTimeout(function(){
+      console.log('ahahahah')
+      resolve()
+    }, ms);
+  });
+}
+const obj={
+  async name (){
+    await timeout(1000)
+    console.log('hhihi')
+  }
+}
+obj.name()
+
 document.getElementById('submit').addEventListener('click',(e)=>{
   console.log('submit')
   const files=document.getElementById('file').files;

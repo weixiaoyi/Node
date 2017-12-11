@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
+const upload=require('../../commonComponent/upload.js')
 
-/* GET home page. */
-router.post('/upload', multer().single('myfile'),function(req,res,next){
-      res.send(req.file )
-      //res.json({errcode:0,errmessage:'上传文件'})
-    });
+router.post('/upload', upload.disk(),function(req,res,next){
+  res.send(req.files )
+  //res.json({errcode:0,errmessage:'上传文件'})
+});
 
 router.route('/example')
-    .all((req, res, next)=>{
-      console.log('ahhah')
-      next()
-    })
-    .get((req, res, next)=>{
-      res.json({errcode:0,errmessage:'',data:'hahahha'})
-    });
+  .all((req, res, next)=>{
+    console.log('ahhah')
+    next()
+  })
+  .get((req, res, next)=>{
+    res.json({errcode:0,errmessage:'',data:'hahahha'})
+  });
 
 
 module.exports = router;
