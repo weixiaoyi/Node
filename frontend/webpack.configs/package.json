@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "dev.wei_xiaoyi.com":"webpack-dev-server --open --config webpack.dev.wei_xiaoyi.com.js",
+    "dev.blog.wei_xiaoyi.com":"webpack-dev-server --open --config webpack.dev.blog.wei_xiaoyi.com.js",
     "prod.wei_xiaoyi.com": "webpack --config webpack.prod.wei_xiaoyi.com.js"
   },
   "devDependencies": {

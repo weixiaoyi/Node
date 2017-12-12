@@ -9,21 +9,13 @@ axios.interceptors.response.use(function (res) {
   return Promise.reject(error);
 });
 
-function timeout(ms) {
-  return new Promise((resolve) => {
-    setTimeout(function(){
-      console.log('ahahahah')
-      resolve()
-    }, ms);
-  });
-}
-const obj={
-  async name (){
-    await timeout(1000)
-    console.log('hhihi')
-  }
-}
-obj.name()
+
+window.addEventListener('message',(e)=>{
+  console.log(window.document.title)
+  //e.source.postMessage('收到了','*')
+},false)
+// window.parent.postMessage('显示页加载完毕','*');
+
 
 document.getElementById('submit').addEventListener('click',(e)=>{
   console.log('submit')
