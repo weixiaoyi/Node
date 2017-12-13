@@ -11,7 +11,9 @@ axios.interceptors.response.use(function (res) {
 
 
 window.addEventListener('message',(e)=>{
-  console.log(window.document.title)
+  if(event.origin.indexOf('a.com')>-1){
+  }
+  //console.log(window.document.title)
   //e.source.postMessage('收到了','*')
 },false)
 // window.parent.postMessage('显示页加载完毕','*');
