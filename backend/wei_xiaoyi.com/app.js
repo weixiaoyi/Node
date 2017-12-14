@@ -44,16 +44,16 @@ app.use(session({
   saveUninitialized: true,
   store: new mongoStore({
     mongooseConnection: mongoose.connection,
-    ttl: 1* 15
+    ttl: 1*15
   })
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-router(app)
+router(app);
 
 // catch 404 and forward to error handler
 app.use((req, res, next)=>{
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

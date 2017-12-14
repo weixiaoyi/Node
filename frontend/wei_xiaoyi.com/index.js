@@ -10,15 +10,6 @@ axios.interceptors.response.use(function (res) {
 });
 
 
-window.addEventListener('message',(e)=>{
-  if(event.origin.indexOf('a.com')>-1){
-  }
-  //console.log(window.document.title)
-  //e.source.postMessage('收到了','*')
-},false)
-// window.parent.postMessage('显示页加载完毕','*');
-
-
 document.getElementById('submit').addEventListener('click',(e)=>{
   console.log('submit')
   const files=document.getElementById('file').files;
@@ -28,7 +19,7 @@ document.getElementById('submit').addEventListener('click',(e)=>{
     data.append('myfile',files[i])
   }
   axios({
-    url:'/api/upload',
+    url:'/api/file',
     method:'post',
     headers: {'Content-Type': 'multipart/form-data'},
     data:data
