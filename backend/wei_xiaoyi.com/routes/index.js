@@ -1,7 +1,13 @@
-const router=(app)=>{
-  app.use('/',require('./render.js'));
-  app.use('/api/example/',require('./example.js'));
-  app.use('/api/file/',require('./file.js'));
+const {
+  render,
+  example,
+  file,
+}=require('../controllers')
+
+const router= app =>{
+  app.use('/',render)
+  app.use('/api/example/',example)
+  app.use('/api/file/',file)
 }
 
-module.exports = router;
+module.exports = router
