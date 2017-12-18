@@ -1,8 +1,8 @@
-const Base = require('./base.js')
+const { mixin,Base,Error} = require('../../commonControllers')
 const { check,body, validationResult } = require('express-validator/check')
 const { matchedData, sanitize } = require('express-validator/filter')
 
-class Example extends Base{
+class Example extends mixin(Base,Error){
    constructor(){
       super()
       this.router.route('/')

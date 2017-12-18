@@ -1,6 +1,6 @@
 const controllers = {
-  render: require('./render.js'),
-  example: require('./example'),
-  file: require('./file.js')
+   render: require('./render.js'),
+   example: require('./example'),
+   file: require('./file.js')
 }
 module.exports = controllers
