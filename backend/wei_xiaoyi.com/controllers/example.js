@@ -1,16 +1,17 @@
-const { mixin,Base,Error} = require('../../commonControllers')
-const { check,body, validationResult } = require('express-validator/check')
-const { matchedData, sanitize } = require('express-validator/filter')
+const {Base,errors,validator} = require('../../commonControllers')
+const { mix } = require('mixwith')
 
-class Example extends mixin(Base,Error){
+class Example extends errors(validator(Base)){
+// class Example extends Errors(Validator(Base)){
    constructor(){
       super()
+      //this.post=this.post.bind(this)
       this.router.route('/')
          .all(this.all)
          .get(this.get)
          .post(this.checkPost(),this.post)
          .patch(this.patch)
-         .delete(this.delete)
+         .delete(this.delete);
    }
    all(req, res, next){
       next()
@@ -20,15 +21,15 @@ class Example extends mixin(Base,Error){
    }
    checkPost(){
       return [
-         sanitize('id').trim(),
-         body('id').custom(value => {
-            if(value!=='12345'){
+         this.v.sanitize('id').trim(),
+         this.v.body('id').custom(value => {
+            if(value!=='1234'){
                throw new Error('id不符合要求')
             }
             return true
          }),
          (req,res,next)=>{
-            const errors=validationResult(req)
+            const errors=this.v.validationResult(req)
             if(!errors.isEmpty()){
                return this.error400(res).json({data:errors.mapped(),message:'错误参数'})
             }
@@ -37,7 +38,7 @@ class Example extends mixin(Base,Error){
       ]
    }
    post(req,res,next){
-      const data=matchedData(req)
+      const data=this.v.matchedData(req)
       res.json({errcode:0,errmessage:'',data:data})
    }
    patch(req,res,next){
@@ -47,6 +48,5 @@ class Example extends mixin(Base,Error){
       res.status(204).send('删除成功')
    }
 }
-
 
 module.exports = new Example().router
