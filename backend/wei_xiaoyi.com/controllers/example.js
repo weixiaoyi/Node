@@ -1,17 +1,15 @@
-const {Base,errors,validator} = require('../../commonControllers')
-const { mix } = require('mixwith')
+const {mix,Base,Errors,Validator} = require('../../commonControllers')
 
-class Example extends errors(validator(Base)){
-// class Example extends Errors(Validator(Base)){
+
+class Example extends mix(Base).with(Errors,Validator){
    constructor(){
       super()
-      //this.post=this.post.bind(this)
       this.router.route('/')
-         .all(this.all)
-         .get(this.get)
-         .post(this.checkPost(),this.post)
-         .patch(this.patch)
-         .delete(this.delete);
+         .all(this.all.bind(this))
+         .get(this.get.bind(this))
+         .post(this.checkPost(),this.post.bind(this))
+         .patch(this.patch.bind(this))
+         .delete(this.delete.bind(this))
    }
    all(req, res, next){
       next()
