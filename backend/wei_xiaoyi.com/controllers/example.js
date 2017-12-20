@@ -1,5 +1,4 @@
-const {mix,Base,Errors,Validator} = require('../../commonControllers')
-
+const {mix,Base,Errors,Validator} = require(PATH.commonControllers)
 
 class Example extends mix(Base).with(Errors,Validator){
    constructor(){
@@ -26,8 +25,8 @@ class Example extends mix(Base).with(Errors,Validator){
             }
             return true
          }),
-         (req,res,next)=>{
-            const errors=this.v.validationResult(req)
+         (req,res,next)=> {
+            const errors = this.v.validationResult(req)
             if(!errors.isEmpty()){
                return this.error400(res).json({data:errors.mapped(),message:'错误参数'})
             }
@@ -36,7 +35,7 @@ class Example extends mix(Base).with(Errors,Validator){
       ]
    }
    post(req,res,next){
-      const data=this.v.matchedData(req)
+      const data = this.v.matchedData(req)
       res.json({errcode:0,errmessage:'',data:data})
    }
    patch(req,res,next){

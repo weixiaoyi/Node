@@ -2,9 +2,9 @@ const {
   render,
   example,
   file,
-}=require('../controllers')
+} = require('../controllers')
 
-const router= app =>{
+const router = app =>{
   app.use('/',render)
   app.use('/api/example/',example)
   app.use('/api/file/',file)

@@ -8,10 +8,10 @@ access=util.promisify(access)
 //     obj.i= util.promisify(obj.i)
 //   }
 // }
-const promiseStyles = {
+const promiseStyle = {
   mkdir,
   access
 }
 // promisefy(promiseStyles)
 
-module.exports =promiseStyles
+module.exports =promiseStyle
