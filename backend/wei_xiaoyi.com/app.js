@@ -6,19 +6,15 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 const methodOverride = require('method-override')
+
 require('../common/global')
+const {auth} = require(PATH.commonMiddlewares)
 // const cors=require('cors')
 // const compression = require('compression')
-const mongoose = require('mongoose')
-const session = require('express-session')
 const passport = require('passport')
-const mongoStore = require('connect-mongo')(session)
 const router = require('./routes')
 const app = express()
 app.enable('trust proxy')
-
-mongoose.connect('mongodb://localhost/Node',{useMongoClient:true})
-mongoose.Promise = global.Promise
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -47,16 +43,9 @@ app.use(methodOverride(function (req, res) {
       return method
    }
 }))
-app.use(session({
-   secret: 'weixiaoyi',
-   resave: false,
-   saveUninitialized: true,
-   store: new mongoStore({
-      mongooseConnection: mongoose.connection,
-      ttl: 1*15
-   })
-}))
 
+// app.use(auth.session())
+app.use(auth.token())
 app.use(express.static(path.join(__dirname, 'public')))
 router(app)
 

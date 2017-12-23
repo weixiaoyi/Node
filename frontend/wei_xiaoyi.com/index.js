@@ -5,11 +5,11 @@ axios.interceptors.response.use(function (res) {
    const log='<h1 style="font-size: 1rem">'+data+'</h1>'
    //document.append(log)
    //return res.data
-   return res
+   return res.data
 
 }, function (error) {
    return Promise.reject(error)
-});
+})
 
 
 document.getElementById('submit').addEventListener('click',(e)=>{
@@ -29,14 +29,24 @@ document.getElementById('submit').addEventListener('click',(e)=>{
    e.preventDefault()
 })
 
-axios.get('/api/example').then(res=> console.log(res))
-axios.post('/api/example', {
-   id:' 1234'
-}).then((res)=>{
-   console.log(res)
-})
-axios.patch('/api/example').then(res=> console.log(res))
-axios.delete('/api/example').then(res=> console.log(res))
+axios.get('/api/example',{
+   params:{
+      name:'weixiaoyi'
+   }
+}).then(
+   (v)=>{
+      return axios.post('/api/example', {
+         token:v.data.token
+      })
+   }
+).then(axios.patch('/api/example')).then(axios.delete('/api/example')).then()
+// axios.post('/api/example', {
+//    id:' 1234'
+// }).then((res)=>{
+//    console.log(res)
+// })
+// axios.patch('/api/example').then(res=> console.log(res))
+// axios.delete('/api/example').then(res=> console.log(res))
 
 
 

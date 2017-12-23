@@ -1,48 +1,58 @@
 const {mix,Base,Errors,Validator} = require(PATH.commonControllers)
-
+const {auth} = require(PATH.commonMiddlewares)
 class Example extends mix(Base).with(Errors,Validator){
    constructor(){
       super()
-      this.router.route('/')
-         .all(this.all.bind(this))
-         .get(this.get.bind(this))
-         .post(this.checkPost(),this.post.bind(this))
-         .patch(this.patch.bind(this))
-         .delete(this.delete.bind(this))
+      this.router.route('/').all(this.all())
+         .get(this.get()).post(this.checkPost(),this.post())
+         .patch(this.patch()).delete(this.delete())
    }
-   all(req, res, next){
-      next()
+   all(){
+      return (req,res,next)=>{
+         next()
+      }
    }
-   get(req, res, next){
-      res.json({data:'hahahha'})
+   get(){
+      return (req,res,next)=>{
+         const token=auth.tokenSign({
+            name:req.query.name
+         })
+         this.resok(res,{data:{token:token}})
+      }
    }
    checkPost(){
       return [
-         this.v.sanitize('id').trim(),
-         this.v.body('id').custom(value => {
-            if(value!=='1234'){
-               throw new Error('id不符合要求')
+         this.v.sanitize('token').trim(),
+         this.v.body('token').custom(value => {
+            if(value=='weixiaoyi'){
+               throw new Error('token不符合要求')
             }
             return true
          }),
          (req,res,next)=> {
             const errors = this.v.validationResult(req)
             if(!errors.isEmpty()){
-               return this.error400(res).json({data:errors.mapped(),message:'错误参数'})
+               return this.error400(res,'参数错误',errors.mapped())
             }
             next()
          }
       ]
    }
-   post(req,res,next){
-      const data = this.v.matchedData(req)
-      res.json({errcode:0,errmessage:'',data:data})
+   post(){
+      return (req,res,next)=>{
+         const data = this.v.matchedData(req)
+         this.resok(res,{data:data})
+      }
    }
-   patch(req,res,next){
-      res.send('patch成功')
+   patch(){
+      return (req,res,next)=>{
+         this.resok(res,{message:'patch成功'})
+      }
    }
-   delete(req,res,next){
-      res.status(204).send('删除成功')
+   delete(){
+      return (req,res,next)=>{
+         this.resok(res,{message:'删除成功'})
+      }
    }
 }
 

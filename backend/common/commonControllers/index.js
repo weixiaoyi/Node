@@ -7,5 +7,5 @@ module.exports = {
    mix,
    Base,
    Errors,
-   Validator
+   Validator,
 }
