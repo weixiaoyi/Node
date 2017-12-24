@@ -5,6 +5,7 @@ const Validator = Super => class extends Super{
    constructor(){
       super()
       this.v={check, body, validationResult, matchedData, sanitize}
+      this.v.record=(errmessage)=>{throw new Error(errmessage)}
    }
 }
 

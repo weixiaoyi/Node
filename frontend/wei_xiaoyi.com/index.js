@@ -36,7 +36,7 @@ axios.get('/api/example',{
 }).then(
    (v)=>{
       return axios.post('/api/example', {
-         token:v.data.token
+         token:v.token
       })
    }
 ).then(axios.patch('/api/example')).then(axios.delete('/api/example')).then()

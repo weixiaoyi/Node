@@ -17,7 +17,7 @@ class Example extends mix(Base).with(Errors,Validator){
          const token=auth.tokenSign({
             name:req.query.name
          })
-         this.resok(res,{data:{token:token}})
+         this.resok(res,{token:token})
       }
    }
    checkPost(){
@@ -25,14 +25,14 @@ class Example extends mix(Base).with(Errors,Validator){
          this.v.sanitize('token').trim(),
          this.v.body('token').custom(value => {
             if(value=='weixiaoyi'){
-               throw new Error('token不符合要求')
+               this.v.record('token不符合要求')
             }
             return true
          }),
          (req,res,next)=> {
             const errors = this.v.validationResult(req)
             if(!errors.isEmpty()){
-               return this.error400(res,'参数错误',errors.mapped())
+               return this.error400(res,{erros:errors.mapped()})
             }
             next()
          }
@@ -41,7 +41,7 @@ class Example extends mix(Base).with(Errors,Validator){
    post(){
       return (req,res,next)=>{
          const data = this.v.matchedData(req)
-         this.resok(res,{data:data})
+         this.resok(res,data)
       }
    }
    patch(){

@@ -1,17 +1,21 @@
-const {Base} = require(PATH.commonControllers)
+const {mix,Base,Errors} = require(PATH.commonControllers)
 const {uploadFile} = require(PATH.commonComponents)
 const {defaultSave,localSave} = new uploadFile()
 
-class File extends Base{
+class File extends mix(Base).with(Errors){
    constructor(){
       super()
-      this.router.route('/').all(this.all).post(localSave(),this.post)
+      this.router.route('/').all(this.all()).post(localSave(),this.post())
    }
-   all(req, res, next){
-      next()
+   all(){
+      return (req,res,next)=>{
+         next()
+      }
    }
-   post(req, res, next){
-      res.send(req.files )
+   post(){
+      return (req,res,next)=>{
+         this.resok(res,{data:req.files})
+      }
    }
 }
 

@@ -1,5 +1,5 @@
 const multer = require('multer')
-const { mkdir,access } = require(`${PATH.commonUtils}`).promiseStyle
+const { mkdir,access } = require(PATH.commonUtils).promiseStyle
 
 class uploadFile{
    constructor(props = {
