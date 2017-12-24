@@ -35,4 +35,4 @@ class uploadFile{
    }
 }
 
-module.exports = uploadFile
+module.exports = new uploadFile()

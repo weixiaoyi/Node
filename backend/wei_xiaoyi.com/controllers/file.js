@@ -1,6 +1,6 @@
 const {mix,Base,Errors} = require(PATH.commonControllers)
 const {uploadFile} = require(PATH.commonComponents)
-const {defaultSave,localSave} = new uploadFile()
+const {defaultSave,localSave} = uploadFile
 
 class File extends mix(Base).with(Errors){
    constructor(){
