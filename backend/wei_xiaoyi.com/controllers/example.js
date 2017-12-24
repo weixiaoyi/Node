@@ -1,10 +1,12 @@
 const {mix,Base,Errors,Validator} = require(PATH.commonControllers)
-const {auth} = require(PATH.commonMiddlewares)
+const {Auth,Permission} = require(PATH.commonMiddlewares)
 class Example extends mix(Base).with(Errors,Validator){
    constructor(){
       super()
-      this.router.route('/').all(this.all())
-         .get(this.get()).post(this.checkPost(),this.post())
+      this.router.route('/')
+         .get(this.get())
+         .all(this.all())
+         .post(Auth.auth(),Permission.allow(),this.checkPost(),this.post())
          .patch(this.patch()).delete(this.delete())
    }
    all(){
@@ -14,7 +16,7 @@ class Example extends mix(Base).with(Errors,Validator){
    }
    get(){
       return (req,res,next)=>{
-         const token=auth.tokenSign({
+         const token=Auth.tokenSign({
             name:req.query.name
          })
          this.resok(res,{token:token})

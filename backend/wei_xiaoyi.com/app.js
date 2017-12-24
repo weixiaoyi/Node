@@ -44,8 +44,6 @@ app.use(methodOverride(function (req, res) {
    }
 }))
 
-// app.use(auth.session())
-app.use(auth.token())
 app.use(express.static(path.join(__dirname, 'public')))
 router(app)
 

@@ -1,4 +1,6 @@
-const auth = require('./Auth')
+const Auth = require('./Auth.js')
+const Permission = require('./Permission.js')
 module.exports = {
-   auth,
+   Auth,
+   Permission
 }
