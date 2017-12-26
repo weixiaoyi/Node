@@ -4,6 +4,7 @@ const router = express.Router()
 /* GET home page. */
 router.get('/userlist', (req, res, next)=>{
    res.json({
+      totalpage:20,
       tableData: [{
          date: '2016-05-03',
          name: '王小虎',
