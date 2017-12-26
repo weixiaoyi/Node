@@ -1,5 +1,6 @@
 const path = require('path')
 global.PATH = {
+   commonKey:path.resolve(__dirname+'/key'),
    controllers: path.resolve(__dirname+'/wei_xiaoyi.com/controllers'),
    models: path.resolve(__dirname+'../../wei_xiaoyi.com/models'),
    commonControllers: path.resolve(__dirname+'/commonControllers'),
@@ -7,4 +8,5 @@ global.PATH = {
    commonUtils: path.resolve(__dirname+'/commonUtils'),
    commonMiddlewares:path.resolve(__dirname+'/commonMiddlewares'),
    commonConfig:path.resolve(__dirname+'/commonConfig'),
+
 }
