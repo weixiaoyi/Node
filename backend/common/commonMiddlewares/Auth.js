@@ -14,6 +14,12 @@ db.once('open', function() {
    console.log('数据库已连接')
 })
 
+// const user=new User({
+//    name:'weixiaoyi',
+//    role:'admin'
+// })
+// user.save()
+
 class Auth extends mix(Object).with(Errors){
    constructor(){
       super()

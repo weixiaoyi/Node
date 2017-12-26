@@ -9,7 +9,7 @@ const methodOverride = require('method-override')
 
 require('../common/global')
 const {auth} = require(PATH.commonMiddlewares)
-// const cors=require('cors')
+const cors=require('cors')
 // const compression = require('compression')
 const passport = require('passport')
 const router = require('./routes')
@@ -20,13 +20,13 @@ app.enable('trust proxy')
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jade')
 
-// app.use(cors({
-//   origin:'*',
-//   credentials:true,
-//   methods:['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   exposedHeaders:['auth']
-// }))
+app.use(cors({
+  origin:'*',
+  credentials:true,
+  methods:['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders:['auth']
+}))
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))

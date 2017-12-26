@@ -28,7 +28,7 @@ document.getElementById('submit').addEventListener('click',(e)=>{
    })
    e.preventDefault()
 })
-
+axios.get('/api/office/userlist').then((res)=>{console.log('ahahah')})
 axios.get('/api/example',{
    params:{
       name:'weixiaoyi'
