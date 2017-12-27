@@ -3,66 +3,24 @@ const router = express.Router()
 
 /* GET home page. */
 router.get('/userlist', (req, res, next)=>{
+   const pagesize=10;
+   let totalnum;
+   const currentpage=parseInt(req.query.page)
+   let Data=[]
+   for(let i=0;i<500;i++){
+      Data.push({
+         id: i,
+         name: '我是'+i,
+         phonenumber: '183-532-68994',
+         status: '待审核',
+         timeregister: '2017.8.13',
+         timeactive: '2017.9.13'
+      })
+   }
+   const tableData=Data.slice((currentpage-1)*pagesize,currentpage*pagesize)
+   totalnum=Data.length
    res.json({
-      totalpage:20,
-      tableData: [{
-         date: '2016-05-03',
-         name: '王小虎',
-         province: '上海',
-         city: '普陀区',
-         address: '上海市普陀区金沙江路 1518 弄',
-         zip: 200333
-      }, {
-         date: '2016-05-02',
-         name: '王小虎',
-         province: '上海',
-         city: '普陀区',
-         address: '上海市普陀区金沙江路 1518 弄',
-         zip: 200333
-      }, {
-         date: '2016-05-04',
-         name: '王小虎',
-         province: '上海',
-         city: '普陀区',
-         address: '上海市普陀区金沙江路 1518 弄',
-         zip: 200333
-      }, {
-         date: '2016-05-01',
-         name: '王小虎',
-         province: '上海',
-         city: '普陀区',
-         address: '上海市普陀区金沙江路 1518 弄',
-         zip: 200333
-      },
-         {
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-         },{
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-         },{
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-         },{
-            date: '2016-05-01',
-            name: '王小虎',
-            province: '上海',
-            city: '普陀区',
-            address: '上海市普陀区金沙江路 1518 弄',
-            zip: 200333
-         }]
+      totalnum,pagesize,currentpage,tableData
    })
 })
 
