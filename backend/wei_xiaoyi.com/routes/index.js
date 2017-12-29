@@ -9,7 +9,7 @@ const router = app =>{
    app.use('/',render)
    app.use('/api/example/',example)
    app.use('/api/file/',file)
-   app.use('/api/office/',office)
+   app.use('/user/',office)
 }
 
 module.exports = router
