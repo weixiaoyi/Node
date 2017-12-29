@@ -146,20 +146,19 @@ router.get('/coachinfo/:id?info=basicInfo', (req, res, next)=>{
 
 router.post('/updateValidationStatus/:id', (req, res, next)=>{
    res.json({
-      basicInfo: {
-         status:'notPassed',
-         info:[
-            {name:'王小虎',status:false},//单条初始状态为true,审核不通过该值为false
-            {sex:'男',status:true},
-            {phoneNum:'183-532-68994',status:true},
-            {card:421182199209191750,status:false},
-            {birthDay:'1992.09.19',status:true},
-            {cardImg:[
-               {front:'http://qiniuyun/22780955/cert/front.png',status:true},
-               {back:'http://qiniuyun/22780955/cert/back.png',status:true}
-            ]}]
-      },
-   })
+      type:'basicInfo',
+      status:'notPassed',
+      info:[
+         {name:'王小虎',status:false},//单条初始状态为true,审核不通过该值为false
+         {sex:'男',status:true},
+         {phoneNum:'183-532-68994',status:true},
+         {card:421182199209191750,status:false},
+         {birthDay:'1992.09.19',status:true},
+         {cardImg:[
+            {front:'http://qiniuyun/22780955/cert/front.png',status:true},
+            {back:'http://qiniuyun/22780955/cert/back.png',status:true}
+         ]}]
+   },)
 })
 
 router.post('/user/login', (req, res, next)=>{
