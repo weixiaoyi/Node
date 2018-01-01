@@ -1,8 +1,31 @@
 const express = require('express')
 const router = express.Router()
 
+
+function delay(res,time=2000){
+   const primary=res.json.bind(res)
+   res.json=function(obj){
+      setTimeout(()=>{
+         primary(obj)
+      },time)
+   }
+}
+
+router.post('/login',(req,res,next)=>{
+   delay(res)
+   if(req.body.name&&req.body.password){
+      res.json({
+         errcode:0,
+         errmsg:'',
+         timestamp:'1234545667',
+      })
+   }
+})
+
+
 /* GET home page. */
 router.get('/getAllUsersInfo', (req, res, next)=>{
+   delay(res)
    const pageSize=20
    let totalNum
    const currentPage=parseInt(req.query.page)
@@ -30,6 +53,7 @@ router.get('/getAllUsersInfo', (req, res, next)=>{
 })
 
 router.get('/getAllCoachesInfo', (req, res, next)=>{
+   delay(res)
    const pagesize=20
    let totalnum
    const currentpage=parseInt(req.query.page)
@@ -62,13 +86,13 @@ router.get('/getAllCoachesInfo', (req, res, next)=>{
    )
 })
 
-// router.get('/coachinfo', (req, res, next)=>{
-//    res.json({
-//       basicInfo:{name:req.query.id+'Name',sex:'男',phoneNum:'183-532-68994',cert:421182199209191750,birthday:'1992.09.19'},
-//       careerAbility:{careertime:'3年零6个月',gyn:'深海花园健身吧',gynaddress:'深海人民大道7号'},
-//       degreeInfo:{maxscholl:'本科',graduatefrom:'北京大学',major:'体育',graduatetime:'2016.12.13'},
-//    })
-// })
+router.get('/coachinfo', (req, res, next)=>{
+   res.json({
+      basicInfo:{name:req.query.id+'Name',sex:'男',phoneNum:'183-532-68994',cert:421182199209191750,birthday:'1992.09.19'},
+      careerAbility:{careertime:'3年零6个月',gyn:'深海花园健身吧',gynaddress:'深海人民大道7号'},
+      degreeInfo:{maxscholl:'本科',graduatefrom:'北京大学',major:'体育',graduatetime:'2016.12.13'},
+   })
+})
 
 router.get('/coachinfo/:id', (req, res, next)=>{
    res.json({
@@ -123,25 +147,79 @@ router.get('/coachinfo/:id', (req, res, next)=>{
    })
 })
 
-router.get('/coachinfo/:id?info=basicInfo', (req, res, next)=>{
-   res.json({
+router.get('/getCoachInfo/:id', (req, res, next)=>{
+   delay(res)
+   const info=req.query.info
+   const basic={
       errcode:0,
       errmsg:'',
-      timestamp:'1234545667',
-      data:{
-         status:'unComplete/completed/hasChecked/notPassed',//初始是未完成,用户跟新后是completed,审核通过hasChecked,未通过notPassed
-         info:[
-            {name:'王小虎',status:true},//单条初始状态为true,审核不通过该值为false
-            {sex:'男',status:true},
-            {phoneNum:'183-532-68994',status:true},
-            {card:421182199209191750,status:true},
-            {birthDay:'1992.09.19',status:true},
-            {cardImg:[
-               {front:'http://qiniuyun/22780955/cert/front.png',status:true},
-               {back:'http://qiniuyun/22780955/cert/back.png',status:true}
-            ]}]
+      timestamp:'1234545667'
+   }
+   switch(info){
+      case 'basicInfo':{
+         res.json({
+            ...basic,
+            ...{data:{
+               status:'unComplete/completed/hasChecked/notPassed',//初始是未完成,用户跟新后是completed,审核通过hasChecked,未通过notPassed
+               info:[
+                  {name:'王小虎',status:true},//单条初始状态为true,审核不通过该值为false
+                  {sex:'男',status:true},
+                  {phoneNum:'183-532-68994',status:true},
+                  {card:421182199209191750,status:true},
+                  {birthday:'1992.09.19',status:true},
+                  {cardImg:[
+                     {front:'http://qiniuyun/22780955/cert/front.png',status:true},
+                     {back:'http://qiniuyun/22780955/cert/back.png',status:true}
+                  ]}]
+            }
+            }})
+         break
       }
-   })
+      case 'degreeInfo':{
+         res.json({
+            ...basic,
+            ...{data:{
+               status:'unComplete/completed/hasChecked/notPassed',
+               info:[
+                  {highestDegree:'本科',status:true},
+                  {graduatedUniversity:'北京大学',status:true},
+                  {major:'体育',status:true},
+                  {graduatedTime:'2016.12.13',status:true},
+                  {certificateImg:[
+                     {'name125566767':'http://qiniuyun/22780955/cert/name125566767.png',status:true},
+                     {'name346576889':'http://qiniuyun/22780955/cert/name346576889.png',status:true},
+                     {'name346576889':'http://qiniuyun/22780955/cert/name346576889.png',status:true}
+                  ]}
+               ]
+            }
+            }})
+         break
+      }
+      case 'careerAbility':{
+         res.json({
+            ...basic,
+            ...{data:{
+               status:'unComplete/completed/hasChecked/notPassed',
+               info:[
+                  {jobTime:'3年零6个月',status:true},
+                  {gym:'深海花园健身吧',status:true},
+                  {gymAddress:'深海人民大道7号',status:true},
+                  {jobCertificateImg :[
+                     {'name146667777':'http://qiniuyun/22780955/cert/name146667777.png',status:true},
+                     {'name126677786767':'http://qiniuyun/22780955/cert/name126677786767.png',status:true}
+                  ]},
+                  {qualiCertificateImg:[
+                     {'name1433447777':'http://qiniuyun/22780955/cert/name1433447777.png',status:true},
+                     {'name66777767777':'http://qiniuyun/22780955/cert/name66777767777.png',status:true},
+                     {'name66777767777':'http://qiniuyun/22780955/cert/name66777767777.png',status:true}
+                  ]}
+               ]
+            }
+            }})
+         break
+      }
+   }
+
 })
 
 router.post('/updateValidationStatus/:id', (req, res, next)=>{
@@ -168,6 +246,7 @@ router.post('/user/login', (req, res, next)=>{
       password:'0F5607308AB73CFEA24CE51B9CFCF302',//加密后的密码
       timestamp:'1514526492000'
    })
+
 })
 
 module.exports = router
