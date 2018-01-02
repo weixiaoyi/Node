@@ -12,14 +12,29 @@ function delay(res,time=2000){
 }
 
 router.post('/login',(req,res,next)=>{
-   delay(res)
+   //delay(res)
    if(req.body.name&&req.body.password){
       res.json({
          errcode:0,
          errmsg:'',
          timestamp:'1234545667',
+         data:{
+            name:'weixiaoyi'
+         }
       })
    }
+})
+
+router.get('/info',(req,res,next)=>{
+   delay(res)
+   res.json({
+      errcode:0,
+      errmsg:'',
+      timestamp:'1234545667',
+      data:{
+         name:'weixiaoyi'
+      }
+   })
 })
 
 
