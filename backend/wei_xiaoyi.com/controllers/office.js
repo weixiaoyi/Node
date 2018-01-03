@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 
-function delay(res,time=2000){
+function delay(res,time=500){
    const primary=res.json.bind(res)
    res.json=function(obj){
       setTimeout(()=>{
@@ -14,11 +14,12 @@ function delay(res,time=2000){
 router.post('/login',(req,res,next)=>{
    if(req.body.userName&&req.body.password){
       res.json({
-         errcode:0,
-         errmsg:'',
+         errCode:0,
+         errMsg:null,
          timestamp:'1234545667',
          data:{
-            name:req.body.userName
+            bossToken:"89252012ccd04aa1828ebd0396666e63",
+            bossUser:"chujunfei"
          }
       })
    }
@@ -161,29 +162,29 @@ router.get('/coachinfo/:id', (req, res, next)=>{
    })
 })
 
-router.get('/getCoachInfo/:id', (req, res, next)=>{
+router.get('/coach/:id/:info', (req, res, next)=>{
    delay(res)
-   const info=req.query.info
+   const info=req.params.info
    const basic={
       errcode:0,
       errmsg:'',
-      timestamp:'1234545667'
+      timestamp:1234545667
    }
    switch(info){
       case 'basicInfo':{
          res.json({
             ...basic,
             ...{data:{
-               status:'unComplete/completed/hasChecked/notPassed',//初始是未完成,用户跟新后是completed,审核通过hasChecked,未通过notPassed
+               status:'UnComplete/Completed/HasChecked/NotPassed',//初始是未完成,用户跟新后是completed,审核通过hasChecked,未通过notPassed
                info:[
                   {name:'王小虎',status:true},//单条初始状态为true,审核不通过该值为false
                   {sex:'男',status:true},
-                  {phoneNum:'183-532-68994',status:true},
-                  {card:421182199209191750,status:true},
-                  {birthday:'1992.09.19',status:true},
-                  {cardImg:[
-                     {front:'http://qiniuyun/22780955/cert/front.png',status:true},
-                     {back:'http://qiniuyun/22780955/cert/back.png',status:true}
+                  {birthday:60546240000000,status:true},
+                  {cardNum:421182199209191750,status:true},
+                  {phoneNum:'13286667160',status:true},
+                  {cards:[
+                     {img0:'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
+                     {img1:'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true}
                   ]}]
             }
             }})
@@ -193,16 +194,16 @@ router.get('/getCoachInfo/:id', (req, res, next)=>{
          res.json({
             ...basic,
             ...{data:{
-               status:'unComplete/completed/hasChecked/notPassed',
+               status:'UnComplete/Completed/HasChecked/NotPassed',
                info:[
                   {highestDegree:'本科',status:true},
-                  {graduatedUniversity:'北京大学',status:true},
-                  {major:'体育',status:true},
-                  {graduatedTime:'2016.12.13',status:true},
-                  {certificateImg:[
-                     {'name125566767':'http://qiniuyun/22780955/cert/name125566767.png',status:true},
-                     {'name346576889':'http://qiniuyun/22780955/cert/name346576889.png',status:true},
-                     {'name346576889':'http://qiniuyun/22780955/cert/name346576889.png',status:true}
+                  {graduatedSchool:'北京大学',status:true},
+                  {profession:'体育',status:true},
+                  {graduatedDate:'61396502400000',status:true},
+                  {graduatedCertifications:[
+                     {'img0':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
+                     {'img1':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
+                     {'img2':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true}
                   ]}
                ]
             }
@@ -213,19 +214,19 @@ router.get('/getCoachInfo/:id', (req, res, next)=>{
          res.json({
             ...basic,
             ...{data:{
-               status:'unComplete/completed/hasChecked/notPassed',
+               status:'UnComplete/Completed/HasChecked/NotPassed',
                info:[
-                  {jobTime:'3年零6个月',status:true},
-                  {gym:'深海花园健身吧',status:true},
-                  {gymAddress:'深海人民大道7号',status:true},
-                  {jobCertificateImg :[
-                     {'name146667777':'http://qiniuyun/22780955/cert/name146667777.png',status:true},
-                     {'name126677786767':'http://qiniuyun/22780955/cert/name126677786767.png',status:true}
+                  {workDate:'3年零6个月',status:true},
+                  {gymnasiumName:'深海花园健身吧',status:true},
+                  {gymnasiumAddress:'深海人民大道7号深海人民大道7号',status:true},
+                  {workProve :[
+                     {'img0':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
+                     {'img1':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true}
                   ]},
-                  {qualiCertificateImg:[
-                     {'name1433447777':'http://qiniuyun/22780955/cert/name1433447777.png',status:true},
-                     {'name66777767777':'http://qiniuyun/22780955/cert/name66777767777.png',status:true},
-                     {'name66777767777':'http://qiniuyun/22780955/cert/name66777767777.png',status:true}
+                  {careerCertification:[
+                     {'img0':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
+                     {'img1':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
+                     {'img2':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true}
                   ]}
                ]
             }
