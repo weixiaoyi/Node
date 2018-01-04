@@ -29,7 +29,7 @@ router.get('/info',(req,res,next)=>{
    delay(res)
    res.json({
       errcode:0,
-      errmsg:'',
+      errmsg:null,
       timestamp:'1234545667',
       data:{
          name:'weixiaoyi'
@@ -58,7 +58,7 @@ router.get('/getAllUsersInfo', (req, res, next)=>{
    totalNum=Data.length
    res.json({
          errcode:0,
-         errmsg:'',
+         errmsg:null,
          timestamp:'1234545667',
          data:{
             totalNum,pageSize,currentPage,tableData
@@ -89,7 +89,7 @@ router.get('/getAllCoachesInfo', (req, res, next)=>{
    totalnum=Data.length
    res.json({
          errcode:0,
-         errmsg:'',
+         errmsg:null,
          timestamp:'1234545667',
          data:{
             totalNum:500, //列表总个数
@@ -112,7 +112,7 @@ router.get('/coachinfo', (req, res, next)=>{
 router.get('/coachinfo/:id', (req, res, next)=>{
    res.json({
       errcode:0,
-      errmsg:'',
+      errmsg:null,
       timestamp:'1234545667',
       data:{
          basicInfo: {
@@ -167,20 +167,21 @@ router.get('/coach/:id/:info', (req, res, next)=>{
    const info=req.params.info
    const basic={
       errcode:0,
-      errmsg:'',
+      errmsg:null,
       timestamp:1234545667
    }
+   const date=Date.now()
    switch(info){
       case 'basicInfo':{
          res.json({
             ...basic,
             ...{data:{
-               status:'UnComplete/Completed/HasChecked/NotPassed',//初始是未完成,用户跟新后是completed,审核通过hasChecked,未通过notPassed
+               status:'Completed',//初始是未完成,用户跟新后是completed,审核通过hasChecked,未通过notPassed
                info:[
                   {name:'王小虎',status:true},//单条初始状态为true,审核不通过该值为false
-                  {sex:'男',status:true},
-                  {birthday:60546240000000,status:true},
-                  {cardNum:421182199209191750,status:true},
+                  {sex:0,status:true},
+                  {birthday:date,status:true},
+                  {cardNum:"421182199209191750",status:true},
                   {phoneNum:'13286667160',status:true},
                   {cards:[
                      {img0:'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
@@ -194,12 +195,12 @@ router.get('/coach/:id/:info', (req, res, next)=>{
          res.json({
             ...basic,
             ...{data:{
-               status:'UnComplete/Completed/HasChecked/NotPassed',
+               status:'Completed',
                info:[
                   {highestDegree:'本科',status:true},
                   {graduatedSchool:'北京大学',status:true},
                   {profession:'体育',status:true},
-                  {graduatedDate:'61396502400000',status:true},
+                  {graduatedDate:date,status:true},
                   {graduatedCertifications:[
                      {'img0':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
                      {'img1':'http://p0donywy2.bkt.clouddn.com/static/image/me.png',status:true},
@@ -210,13 +211,13 @@ router.get('/coach/:id/:info', (req, res, next)=>{
             }})
          break
       }
-      case 'careerAbility':{
+      case 'careerInfo':{
          res.json({
             ...basic,
             ...{data:{
-               status:'UnComplete/Completed/HasChecked/NotPassed',
+               status:'Completed',
                info:[
-                  {workDate:'3年零6个月',status:true},
+                  {workDate:'7',status:true},
                   {gymnasiumName:'深海花园健身吧',status:true},
                   {gymnasiumAddress:'深海人民大道7号深海人民大道7号',status:true},
                   {workProve :[
@@ -237,21 +238,9 @@ router.get('/coach/:id/:info', (req, res, next)=>{
 
 })
 
-router.post('/updateValidationStatus/:id', (req, res, next)=>{
-   res.json({
-      type:'basicInfo',
-      status:'notPassed',
-      info:[
-         {name:'王小虎',status:false},//单条初始状态为true,审核不通过该值为false
-         {sex:'男',status:true},
-         {phoneNum:'183-532-68994',status:true},
-         {card:421182199209191750,status:false},
-         {birthDay:'1992.09.19',status:true},
-         {cardImg:[
-            {front:'http://qiniuyun/22780955/cert/front.png',status:true},
-            {back:'http://qiniuyun/22780955/cert/back.png',status:true}
-         ]}]
-   },)
+router.put('/coach/validation/:id/info', (req, res, next)=>{
+   delay(res,2000)
+   res.json({})
 })
 
 router.post('/user/login', (req, res, next)=>{
