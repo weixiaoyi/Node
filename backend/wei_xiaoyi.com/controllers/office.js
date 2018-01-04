@@ -12,6 +12,7 @@ function delay(res,time=500){
 }
 
 router.post('/login',(req,res,next)=>{
+   delay(res,1000)
    if(req.body.userName&&req.body.password){
       res.json({
          errCode:0,
@@ -67,11 +68,12 @@ router.get('/getAllUsersInfo', (req, res, next)=>{
    )
 })
 
-router.get('/getAllCoachesInfo', (req, res, next)=>{
+router.get('/coaches/info/:page', (req, res, next)=>{
    delay(res)
+   const date=Date.now()
    const pagesize=20
    let totalnum
-   const currentpage=parseInt(req.query.page)
+   const currentpage=parseInt(req.params.page)
    let Data=[]
 
    for(let i=0;i<500;i++){
@@ -80,22 +82,22 @@ router.get('/getAllCoachesInfo', (req, res, next)=>{
          id: i,
          name: '我是'+i,
          phoneNum: '111-111-1111',
-         status: ['待审核',"已核实","未通过","未完成"][random],
-         timeRegister: '2017.8.13',
-         timeActive: '2017.9.13'
+         status: ['UnComplete',"Completed","NotPassed","HasChecked"][random],
+         registerTime: date,
+         updateTime: date,
       })
    }
    const tableData=Data.slice((currentpage-1)*pagesize,currentpage*pagesize)
    totalnum=Data.length
    res.json({
-         errcode:0,
-         errmsg:null,
+         errCode:0,
+         errMsg:null,
          timestamp:'1234545667',
          data:{
-            totalNum:500, //列表总个数
+            count:500, //列表总个数
             pageSize:20, //分页，单页数据个数
             currentPage:1, //当前查询的页数也要返回
-            tableData:tableData
+            resultSet:tableData
          }
       }
    )
