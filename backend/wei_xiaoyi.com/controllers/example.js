@@ -1,12 +1,11 @@
-const {mix,Base,Errors,Validator} = require(PATH.commonControllers)
-const {Auth,Permission} = require(PATH.commonMiddlewares)
-class Example extends mix(Base).with(Errors,Validator){
+const {mix,Base,Errors} = require(PATH.commonControllers)
+class Example extends mix(Base).with(Errors){
    constructor(){
       super()
       this.router.route('/')
          .get(this.get())
          .all(this.all())
-         .post(Auth.auth(),Permission.allow(),this.checkPost(),this.post())
+         .post(this.post())
          .patch(this.patch()).delete(this.delete())
    }
    all(){
@@ -16,34 +15,12 @@ class Example extends mix(Base).with(Errors,Validator){
    }
    get(){
       return (req,res,next)=>{
-         const token=Auth.tokenSign({
-            name:req.query.name
-         })
-         this.resok(res,{token:token})
+         this.resok(res,{message:'get成功'})
       }
-   }
-   checkPost(){
-      return [
-         this.v.sanitize('token').trim(),
-         this.v.body('token').custom(value => {
-            if(value=='weixiaoyi'){
-               this.v.record('token不符合要求')
-            }
-            return true
-         }),
-         (req,res,next)=> {
-            const errors = this.v.validationResult(req)
-            if(!errors.isEmpty()){
-               return this.error400(res,{erros:errors.mapped()})
-            }
-            next()
-         }
-      ]
    }
    post(){
       return (req,res,next)=>{
-         const data = this.v.matchedData(req)
-         this.resok(res,data)
+         this.resok(res,{message:'post成功'})
       }
    }
    patch(){

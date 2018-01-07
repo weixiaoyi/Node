@@ -26,17 +26,17 @@ document.getElementById('submit').addEventListener('click',(e)=>{
    e.preventDefault()
 })
 
-axios.get('/api/account/login',{
-   params:{
-      name:'weixiaoyi'
-   }
-}).then(
-   (v)=>{
-      return axios.post('/api/account/login', {
-         token:v.token
-      })
-   }
-).then(axios.patch('/api/account/login')).then(axios.delete('/api/account/login')).then()
+// axios.get('/api/example',{
+//    params:{
+//       name:'weixiaoyi'
+//    }
+// }).then(
+//    (v)=>{
+//       return axios.post('/api/example', {
+//          token:v.token
+//       })
+//    }
+// ).then(axios.patch('/api/example')).then(axios.delete('/api/example')).then()
 
 
 
