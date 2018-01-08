@@ -1,7 +1,7 @@
 import axios from 'axios'
 import WebSocket from 'ws'
 
-const ws = new WebSocket('ws://main.wei-xiaoyi.com/api/test')
+const ws = new WebSocket('ws://wei-xiaoyi.com')
 ws.on('open', function open() {
    console.log('connected')
    ws.send('我是谁')
