@@ -1,4 +1,14 @@
 import axios from 'axios'
+import WebSocket from 'ws'
+
+const ws = new WebSocket('ws://main.wei-xiaoyi.com/api/test')
+ws.on('open', function open() {
+   console.log('connected')
+   ws.send('我是谁')
+})
+
+
+
 axios.interceptors.response.use(function (res) {
    let data=JSON.stringify(res.data)
    const log='<h1 style="font-size: 1rem">'+data+'</h1>'
