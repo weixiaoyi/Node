@@ -14,10 +14,14 @@ export default new Router({
       children: [
         {
           name:'nav',
-          path: 'nav',
-          component: (resolve) => require(["@pages/nav.vue"] , resolve),
+          path: '',
+          component: (resolve) => require(["@pages/navigation.vue"] , resolve),
         }
       ]
+    },
+    {
+      path:'*',
+      redirect:'/',
     }
   ]
 })

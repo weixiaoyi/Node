@@ -1,20 +1,18 @@
 <template>
-  <div id="r">
-    home
-    <div>
-      <router-link :to="{name:'nav'}">nav</router-link>
-    </div>
-
+  <div id="home">
+    <div class="header">公共导航头</div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'home'
 }
 </script>
 
 <style>
-
+.header{
+  background-color: red;
+}
 </style>
