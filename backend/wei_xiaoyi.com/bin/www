@@ -1,69 +1,52 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-const fs=require('fs')
 const app = require('../app')
 const debug = require('debug')('node:server')
 const http = require('http')
-
-/**
- * Get port from environment and store in Express.
- */
+const WebSocket = require('ws')
 
 const port = normalizePort(process.env.PORT || '8000')
 app.set('port', port)
 
-/**
- * Create HTTP server.
- */
-
 const server = http.createServer(app)
 
-// var server = http.createServer({
-//    key:fs.readFileSync(PATH.commonKey+'/key.pem','utf8'),
-//    cert:fs.readFileSync(PATH.commonKey+'/server.crt','utf8'),
-// },app)
+const wss = new WebSocket.Server({ server })
+wss.on('connection', function connection(ws, req) {
+   //const location = url.parse(req.url, true)
+   ws.on('message', function incoming(message) {
+      console.log('????????', message)
+   })
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+   ws.send('something')
+})
+
+
 
 server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
 
-/**
- * Normalize a port into a number, string, or false.
- */
+
+
 
 function normalizePort(val) {
    var port = parseInt(val, 10)
-
    if (isNaN(port)) {
-      // named pipe
       return val
    }
-
    if (port >= 0) {
-      // port number
       return port
    }
-
    return false
 }
 
-/**
- * Event listener for HTTP server "error" event.
- */
 
 function onError(error) {
    if (error.syscall !== 'listen') {
       throw error
    }
 
-   var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
+   const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
    switch (error.code) {
       case 'EACCES':
          console.error(bind + ' requires elevated privileges')
@@ -78,9 +61,6 @@ function onError(error) {
    }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
 
 function onListening() {
    var addr = server.address()
@@ -89,3 +69,4 @@ function onListening() {
       : 'port ' + addr.port
    debug('Listening on ' + bind)
 }
+
