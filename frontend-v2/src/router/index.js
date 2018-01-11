@@ -14,7 +14,7 @@ export default new Router({
       children: [
         {
           name:'nav',
-          path: '',
+          path: 'nav',
           component: (resolve) => require(["@pages/navigation.vue"] , resolve),
         }
       ]

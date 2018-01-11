@@ -5,8 +5,11 @@
 </template>
 
 <script>
+  import * as io from 'socket.io-client'
+//const ws=require('ws')
 export default {
-  name: 'navigator'
+  name: 'navigator',
+
 }
 </script>
 
