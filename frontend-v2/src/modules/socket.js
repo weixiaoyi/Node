@@ -1,8 +1,11 @@
 import io from 'socket.io-client'
-class Message{
+class Socket{
   constructor(url){
     this.url=url
     this._test()
+  }
+  _test(){
+    console.log('原生Websocket模块导入')
   }
   socketIo(url=this.url){
     this.socket=io(this.url)
@@ -11,19 +14,18 @@ class Message{
   webSocket(url='ws://wei-xiaoyi.com/socket.io/test'){
     const socket = new WebSocket(url)
     socket.onopen = ()=> {
-      console.log('连接上')
-      socket.send('前端发送消息')
+      console.log('前端socket连接成功')
+      socket.send('hello')
+      console.log('前端socket发送信息')
     }
-    socket.onmessage = e => {
-      console.log(e.data)
+    socket.onmessage = () => {
+      console.log('前端socket收到信息')
       socket.close()
     }
-    socket.onclose = ()=> { console.log('前端主动关闭连接') }
+    socket.onclose = ()=> { console.log('前端socket主动关闭连接') }
     return socket
   }
-  _test(){
-    console.log('io模块导入')
-  }
+
 }
 
-export default Message
+export default Socket

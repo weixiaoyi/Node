@@ -17,18 +17,18 @@
       }
     },
     created(){
-//      const socket=(new Socket('http://wei-xiaoyi.com')).socketIo()
-//      socket.on('connect', function(){
-//        console.log('ahha')
-//      });
-//      socket.on('news', function(data){
-//        console.log(data)
-//      });
-//      socket.on('disconnect', function(){
-//        console.log('关闭')
-//      });
+      const socket=(new Socket('http://wei-xiaoyi.com')).socketIo()
+      socket.on('connect', function(){
+        console.log('ahha')
+      });
+      socket.on('news', function(data){
+        console.log(data)
+      });
+      socket.on('disconnect', function(){
+        console.log('关闭')
+      });
 
-    const sock =(new Socket('ws://wei-xiaoyi.com/socket.io/test')).webSocket()
+//    const sock =(new Socket('ws://wei-xiaoyi.com/socket.io/test')).webSocket()
 
     }
 
