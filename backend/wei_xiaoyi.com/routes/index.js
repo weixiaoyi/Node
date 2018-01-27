@@ -11,7 +11,7 @@ const router = app =>{
    app.use('/api/account',account),
    app.use('/api/example/',example)
    app.use('/api/file/',file)
-   app.use('/user/',office)
+   app.use('/api/user/',office)
 }
 
 module.exports = router
