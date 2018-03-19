@@ -1,4 +1,4 @@
-const uploadFile = require('./uploadFile.js')
+const File = require('./File.js')
 const Socket = require('./Socket')
 module.exports = {
    uploadFile,

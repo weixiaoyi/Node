@@ -1,11 +1,7 @@
 #!/usr/bin/env node
-
 const app = require('../app')
 const debug = require('debug')('node:server')
 const http = require('http')
-
-const {Socket} = require(PATH.commonComponents)
-
 
 const port = normalizePort(process.env.PORT || '10086')
 app.set('port', port)
