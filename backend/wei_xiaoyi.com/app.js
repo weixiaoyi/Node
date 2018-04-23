@@ -8,7 +8,8 @@ const helmet = require('helmet')
 const methodOverride = require('method-override')
 
 const passport = require('passport')
-const router = require('./routes')
+// const router = require('./routes')
+import router from './routes'
 const app = express()
 app.enable('trust proxy')
 

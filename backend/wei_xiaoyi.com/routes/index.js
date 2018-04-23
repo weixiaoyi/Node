@@ -8,4 +8,5 @@ const router = app => {
     app.use( '/wx', wx )
 }
 
-module.exports = router
+//module.exports = router
+export default router
