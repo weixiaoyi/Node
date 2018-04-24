@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "pm2 start  babel-node ./wei_xiaoyi.com/bin/www.js --watch",
-//    "start": "pm2 start  ecosystem.config.js --watch",
+    "start": "pm2 start ecosystem.config.js --watch",
     "logs": "pm2 logs",
     "delete": "pm2 delete all",
     "eslint": "eslint wei_xiaoyi.com/**"
@@ -30,14 +29,11 @@
     "passport": "^0.4.0",
     "serve-favicon": "~2.3.2",
     "socket.io": "^2.0.4",
+    "swagger-editor-dist": "^3.5.4",
+    "swagger-ui-dist": "^3.13.6",
     "ws": "^4.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.13.1"
   }
 }
-
-
